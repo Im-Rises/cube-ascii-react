@@ -1,3 +1,10 @@
+// const projection = (p, distance, width, height) => {
+// 	const factor = distance / (distance + p.z);
+// 	const x = p.x * factor + width / 2;
+// 	const y = p.y * factor + height / 2;
+// 	return {x, y};
+// };
+//
 // const rotateX = (p, angle) => {
 // 	const c = Math.cos(angle);
 // 	const s = Math.sin(angle);
