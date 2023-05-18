@@ -49,3 +49,16 @@ const calculateZ = (x: number, y: number, z: number): number =>
     + (y * Math.sin(angleX) * Math.cos(angleY))
     - (y * Math.cos(angleX) * Math.sin(angleY))
     + (z * Math.cos(angleX) * Math.cos(angleY));
+
+const setBackground = (array2D: string[][], char: string): string[][] => {
+	// eslint-disable-next-line @typescript-eslint/prefer-for-of
+	for (let i = 0; i < array2D.length; i++) {
+		for (let j = 0; j < array2D[i].length; j++) {
+			array2D[i][j] = char;
+		}
+	}
+
+	return array2D;
+};
+
+export {setBackground, calculateX, calculateY, calculateZ};
