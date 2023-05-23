@@ -39,8 +39,6 @@ export const CubeAscii = (props: Props) => {
 			rotateCube(cube);
 		};
 
-		// updateCube();
-
 		const interval = setInterval(updateCube, 1000 / mergedProps.frameRate);
 
 		return () => {

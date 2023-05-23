@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 const BACKGROUND_CHARACTER = '.';
 const FACE_1_CHARACTER = '@';
 const FACE_2_CHARACTER = '$';
@@ -5,6 +6,9 @@ const FACE_3_CHARACTER = '~';
 const FACE_4_CHARACTER = '#';
 const FACE_5_CHARACTER = ';';
 const FACE_6_CHARACTER = '+';
+
+const MIN_ROTATION_SPEED = -0.1;
+const MAX_ROTATION_SPEED = 0.1;
 
 export {
 	BACKGROUND_CHARACTER,
@@ -14,4 +18,6 @@ export {
 	FACE_4_CHARACTER,
 	FACE_5_CHARACTER,
 	FACE_6_CHARACTER,
+	MIN_ROTATION_SPEED,
+	MAX_ROTATION_SPEED,
 };
