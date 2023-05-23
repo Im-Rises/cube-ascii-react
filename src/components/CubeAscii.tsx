@@ -29,9 +29,13 @@ export const CubeAscii = (props: Props) => {
 	useEffect(() => {
 		refreshBuffers(zBuffer, cubeTextBuffer, mergedProps.screenWidth, mergedProps.screenHeight);
 
-		updateBuffers(cube, zBuffer, cubeTextBuffer, mergedProps.screenWidth, mergedProps.screenHeight);
+		// updateBuffers(cube, zBuffer, cubeTextBuffer, mergedProps.screenWidth, mergedProps.screenHeight);
 
 		setAsciiCube(generateTextFromBuffer(cubeTextBuffer, mergedProps.screenWidth, mergedProps.screenHeight));
+
+		// for (let i = 0; i < 100; i++) {
+		// 	console.log(zBuffer[i], cubeTextBuffer[i]);
+		// }
 
 		rotateCube(cube);
 	}, [mergedProps]);
