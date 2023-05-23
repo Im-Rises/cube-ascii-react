@@ -1,64 +1,104 @@
-/*
-* The code below is the multiplication of the rotations matrices by the a point (x, y, z)
-* The rotation matrices are the following:
-* Rx = [          1,            0,            0]
-* 	   [          0,  cos(angleX), -sin(angleX)]
-* 	   [          0,  sin(angleX),  cos(angleX)]
-*
-* Ry = [cos(angleY),            0,  sin(angleY)]
-* 	   [0, 			            1,   		  0]
-* 	   [-sin(angleY),           0,  cos(angleY)]
-*
-* Rz = [cos(angleZ), -sin(angleZ),            0]
-* 	   [sin(angleZ),  cos(angleZ),            0]
-* 	   [          0,     		0,            1]
-*
-* The multiplication of the matrices is the following:
-* [x', y', z'] = [x, y, z] * Rx * Ry * Rz
-*
-* The result is the following:
-*
-* x' = (y * sin(angleX) * sin(angleY) * cos(angleZ)) - (z * cos(angleX) * sin(angleY) * cos(angleZ)) + (y * cos(angleX) * sin(angleZ)) + (z * sin(angleX) * sin(angleZ)) + (x * cos(angleY) * cos(angleZ))
-* y' = (x * sin(angleY) * cos(angleZ)) + (x * cos(angleY) * sin(angleZ)) - (y * sin(angleX) * sin(angleY) * sin(angleZ)) + (z * cos(angleX) * sin(angleY) * sin(angleZ)) - (y * cos(angleX) * cos(angleZ)) - (z * sin(angleX) * cos(angleZ))
-* z' = (x * cos(angleY) * sin(angleZ)) - (x * sin(angleY) * cos(angleZ)) + (y * sin(angleX) * cos(angleY)) - (y * cos(angleX) * sin(angleY)) + (z * cos(angleX) * cos(angleY))
-*
-*/
+import {
+	BACKGROUND_CHARACTER,
+	FACE_1_CHARACTER,
+	FACE_2_CHARACTER,
+	FACE_3_CHARACTER,
+	FACE_4_CHARACTER, FACE_5_CHARACTER, FACE_6_CHARACTER,
+} from '../constants/cube-settings';
+import type Cube from '../classes/Cube';
 
-const angleX = 0;
-const angleY = 0;
-const angleZ = 0;
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const K1 = 40;
 
-const calculateX = (x: number, y: number, z: number): number =>
-	(y * Math.sin(angleX) * Math.sin(angleY) * Math.cos(angleZ))
-    - (z * Math.cos(angleX) * Math.sin(angleY) * Math.cos(angleZ))
-    + (y * Math.cos(angleX) * Math.sin(angleZ))
-    + (z * Math.sin(angleX) * Math.sin(angleZ))
-    + (x * Math.cos(angleY) * Math.cos(angleZ));
+const calculateX = (x: number, y: number, z: number, cube: Cube): number =>
+	(y * Math.sin(cube.rotationX) * Math.sin(cube.rotationY) * Math.cos(cube.rotationZ))
+    - (z * Math.cos(cube.rotationX) * Math.sin(cube.rotationY) * Math.cos(cube.rotationZ))
+    + (y * Math.cos(cube.rotationX) * Math.sin(cube.rotationZ))
+    + (z * Math.sin(cube.rotationX) * Math.sin(cube.rotationZ))
+    + (x * Math.cos(cube.rotationY) * Math.cos(cube.rotationZ));
 
-const calculateY = (x: number, y: number, z: number): number =>
-	(x * Math.sin(angleY) * Math.cos(angleZ))
-    + (x * Math.cos(angleY) * Math.sin(angleZ))
-    - (y * Math.sin(angleX) * Math.sin(angleY) * Math.sin(angleZ))
-    + (z * Math.cos(angleX) * Math.sin(angleY) * Math.sin(angleZ))
-    - (y * Math.cos(angleX) * Math.cos(angleZ))
-    - (z * Math.sin(angleX) * Math.cos(angleZ));
+const calculateY = (x: number, y: number, z: number, cube: Cube): number =>
+	(x * Math.sin(cube.rotationY) * Math.cos(cube.rotationZ))
+    + (x * Math.cos(cube.rotationY) * Math.sin(cube.rotationZ))
+    - (y * Math.sin(cube.rotationX) * Math.sin(cube.rotationY) * Math.sin(cube.rotationZ))
+    + (z * Math.cos(cube.rotationX) * Math.sin(cube.rotationY) * Math.sin(cube.rotationZ))
+    - (y * Math.cos(cube.rotationX) * Math.cos(cube.rotationZ))
+    - (z * Math.sin(cube.rotationX) * Math.cos(cube.rotationZ));
 
-const calculateZ = (x: number, y: number, z: number): number =>
-	(x * Math.cos(angleY) * Math.sin(angleZ))
-    - (x * Math.sin(angleY) * Math.cos(angleZ))
-    + (y * Math.sin(angleX) * Math.cos(angleY))
-    - (y * Math.cos(angleX) * Math.sin(angleY))
-    + (z * Math.cos(angleX) * Math.cos(angleY));
+const calculateZ = (x: number, y: number, z: number, cube: Cube): number =>
+	(x * Math.cos(cube.rotationY) * Math.sin(cube.rotationZ))
+    - (x * Math.sin(cube.rotationY) * Math.cos(cube.rotationZ))
+    + (y * Math.sin(cube.rotationX) * Math.cos(cube.rotationY))
+    - (y * Math.cos(cube.rotationX) * Math.sin(cube.rotationY))
+    + (z * Math.cos(cube.rotationX) * Math.cos(cube.rotationY));
 
-const setBackground = (array2D: string[][], char: string): string[][] => {
-	// eslint-disable-next-line @typescript-eslint/prefer-for-of
-	for (let i = 0; i < array2D.length; i++) {
-		for (let j = 0; j < array2D[i].length; j++) {
-			array2D[i][j] = char;
+const calculateForSurface = (cubeX: number, cubeY: number, cubeZ: number,
+	cube: Cube, ch: string,
+	zBuffer: number[], textBuffer: string[],
+	screenWidth: number, screenHeight: number) => {
+	const x = calculateX(cubeX, cubeY, cubeZ, cube);
+	const y = calculateY(cubeX, cubeY, cubeZ, cube);
+	const z = calculateZ(cubeX, cubeY, cubeZ, cube);
+
+	const ooz = 1 / z;
+
+	const xp = (screenWidth / 2) + (K1 * ooz * x * 2);
+	const yp = (screenHeight / 2) + (K1 * ooz * y);
+
+	const idx = xp + (yp * screenWidth);
+	if (idx >= 0 && idx < screenWidth * screenHeight) {
+		if (ooz > zBuffer[idx]) {
+			zBuffer[idx] = ooz;
+			textBuffer[idx] = ch;
 		}
 	}
 
-	return array2D;
+	return textBuffer;
 };
 
-export {setBackground, calculateX, calculateY, calculateZ};
+const updateBuffers = (cube: Cube, zBuffer: number[], textBuffer: string[], screenWidth: number, screenHeight: number) => {
+	const halfCubeLength = cube.cubeWidthHeight / 2;
+
+	for (let cubeX = -halfCubeLength; cubeX < halfCubeLength; cubeX++) {
+		for (let cubeY = -halfCubeLength; cubeY < halfCubeLength; cubeY++) {
+			calculateForSurface(cubeX, cubeY, -halfCubeLength, cube, FACE_1_CHARACTER, zBuffer, textBuffer, screenWidth, screenHeight);
+			calculateForSurface(halfCubeLength, cubeY, cubeX, cube, FACE_2_CHARACTER, zBuffer, textBuffer, screenWidth, screenHeight);
+			calculateForSurface(-halfCubeLength, cubeY, -cubeX, cube, FACE_3_CHARACTER, zBuffer, textBuffer, screenWidth, screenHeight);
+			calculateForSurface(-cubeX, cubeY, halfCubeLength, cube, FACE_4_CHARACTER, zBuffer, textBuffer, screenWidth, screenHeight);
+			calculateForSurface(cubeX, -halfCubeLength, -cubeY, cube, FACE_5_CHARACTER, zBuffer, textBuffer, screenWidth, screenHeight);
+			calculateForSurface(cubeX, halfCubeLength, cubeY, cube, FACE_6_CHARACTER, zBuffer, textBuffer, screenWidth, screenHeight);
+		}
+	}
+};
+
+const refreshBuffers = (zBuffer: number[], textBuffer: string[], screenWidth: number, screenHeight: number) => {
+	textBuffer.length = 0;
+	zBuffer.length = 0;
+	for (let i = 0; i < screenHeight; i++) {
+		for (let j = 0; j < screenWidth; j++) {
+			textBuffer.push(BACKGROUND_CHARACTER);
+			zBuffer.push(0);
+		}
+	}
+};
+
+const generateTextFromBuffer = (textBuffer: string[], screenWidth: number, screenHeight: number) => {
+	let text = '';
+	for (let i = 0; i < screenHeight; i++) {
+		for (let j = 0; j < screenWidth; j++) {
+			text += textBuffer[(i * screenWidth) + j];
+		}
+
+		text += '\n';
+	}
+
+	return text;
+};
+
+const rotateCube = (cube: Cube) => {
+	cube.rotationX += cube.speedRotationX;
+	cube.rotationY += cube.speedRotationY;
+	cube.rotationZ += cube.speedRotationZ;
+};
+
+export {refreshBuffers, updateBuffers, generateTextFromBuffer, rotateCube};

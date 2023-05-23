@@ -1,67 +1,44 @@
 import React, {useEffect, useState} from 'react';
-import {setBackground} from '../maths/projection-rotation';
+import Cube from '../classes/Cube';
+import {generateTextFromBuffer, refreshBuffers, rotateCube, updateBuffers} from '../maths/projection-rotation';
 
 type Props = {
-	width: number;
-	height: number;
-	cubeDimension: number;
-	rotationX: number;
-	rotationY: number;
-	rotationZ: number;
+	screenWidth: number;
+	screenHeight: number;
+	cubeWidthHeight: number;
+	distanceFromCamera: number;
 };
 
 const defaultProps: Props = {
-	width: 0,
-	height: 0,
-	cubeDimension: 0,
-	rotationX: 0.05,
-	rotationY: 0.05,
-	rotationZ: 0.05,
+	screenWidth: 70,
+	screenHeight: 30,
+	cubeWidthHeight: 40,
+	distanceFromCamera: 100,
 };
 
 export const CubeAscii = (props: Props) => {
 	const mergedProps = {...defaultProps, ...props};
 
-	// const [asciiCube, setAsciiCube] = useState<string[][]>([]);
-	//
-	// setAsciiCube(setBackground(asciiCube, '.'));
+	const [asciiCube, setAsciiCube] = useState<string>('');
 
-	// useEffect(() => {
-	// 	const {width, height, cubeDimension} = mergedProps;
-	//
-	// 	const asciiCube: string[][] = [];
-	//
-	// 	for (let y = 0; y < height; y++) {
-	// 		const row: string[] = [];
-	//
-	// 		for (let x = 0; x < width; x++) {
-	// 			row.push(' ');
-	// 		}
-	//
-	// 		asciiCube.push(row);
-	// 	}
-	//
-	// 	setAsciiCube(asciiCube);
-	// }, [mergedProps]);
+	const zBuffer: number[] = [];
+	const cubeTextBuffer: string[] = [];
+
+	const cube = new Cube();
+
+	useEffect(() => {
+		refreshBuffers(zBuffer, cubeTextBuffer, mergedProps.screenWidth, mergedProps.screenHeight);
+
+		updateBuffers(cube, zBuffer, cubeTextBuffer, mergedProps.screenWidth, mergedProps.screenHeight);
+
+		setAsciiCube(generateTextFromBuffer(cubeTextBuffer, mergedProps.screenWidth, mergedProps.screenHeight));
+
+		rotateCube(cube);
+	}, [mergedProps]);
 
 	return (
 		<div>
-			<pre>
-				{
-					asciiCube
-				}
-				{/* { */}
-				{/*	asciiCube.map((row, rowIndex) => ( */}
-				{/*		<div key={rowIndex}> */}
-				{/*			{ */}
-				{/*				row.map((cell, cellIndex) => ( */}
-				{/*					<span key={cellIndex}>{cell}</span> */}
-				{/*				)) */}
-				{/*			} */}
-				{/*		</div> */}
-				{/*	)) */}
-				{/* } */}
-			</pre>
+			<pre dangerouslySetInnerHTML={{__html: asciiCube}} style={{fontFamily: 'monospace'}}/>
 		</div>
 	);
 };
