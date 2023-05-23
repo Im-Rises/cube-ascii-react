@@ -1,3 +1,4 @@
+/* eslint-disable max-params */
 const incrementFontValue = 0.1; // The value to increment the font size with
 const initFontSize = 1.0;// Init font size for calculation (a value to small will make the text not visible on some devices)
 

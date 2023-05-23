@@ -1,3 +1,5 @@
+/* eslint-disable max-params */
+
 import {
 	BACKGROUND_CHARACTER,
 	FACE_1_CHARACTER,
