@@ -16,9 +16,9 @@ class Cube {
 		this.rotationX = 0;
 		this.rotationY = 0;
 		this.rotationZ = 0;
-		this.speedRotationX = generateRandomFloat(-0.05, 0.1);
-		this.speedRotationY = generateRandomFloat(-0.1, 0.1);
-		this.speedRotationZ = generateRandomFloat(-0.1, 0.1);
+		this.speedRotationX = generateRandomRotation();
+		this.speedRotationY = generateRandomRotation();
+		this.speedRotationZ = generateRandomRotation();
 		this.cubeWidthHeight = 40;
 		this.horizontalOffset = 0;
 		this.verticalOffset = 0;

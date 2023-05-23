@@ -7,8 +7,8 @@ const FACE_4_CHARACTER = '#';
 const FACE_5_CHARACTER = ';';
 const FACE_6_CHARACTER = '+';
 
-const MIN_ROTATION_SPEED = -0.1;
-const MAX_ROTATION_SPEED = 0.1;
+const MIN_ROTATION_SPEED = -0.08;
+const MAX_ROTATION_SPEED = 0.08;
 
 export {
 	BACKGROUND_CHARACTER,
