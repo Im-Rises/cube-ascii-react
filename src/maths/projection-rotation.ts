@@ -38,7 +38,7 @@ const calculateForSurface = (cubeX: number, cubeY: number, cubeZ: number,
 	screenWidth: number, screenHeight: number) => {
 	const x = calculateX(cubeX, cubeY, cubeZ, cube);
 	const y = calculateY(cubeX, cubeY, cubeZ, cube);
-	const z = calculateZ(cubeX, cubeY, cubeZ, cube);
+	const z = calculateZ(cubeX, cubeY, cubeZ, cube) + cube.distanceFromCam;
 
 	const ooz = 1 / z;
 
@@ -52,8 +52,6 @@ const calculateForSurface = (cubeX: number, cubeY: number, cubeZ: number,
 			textBuffer[idx] = ch;
 		}
 	}
-
-	return textBuffer;
 };
 
 const updateBuffers = (cube: Cube, zBuffer: number[], textBuffer: string[], screenWidth: number, screenHeight: number) => {
