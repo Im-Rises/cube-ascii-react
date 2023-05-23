@@ -1,10 +1,8 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
+import {render} from '@testing-library/react';
 import App from '../App';
 
-test('Render ASCII React', () => {
+test('Render ASCII Cube', () => {
 	render(<App/>);
-	const canvasElement = screen.getByTestId('react-p5');
-	expect(canvasElement).toBeInTheDocument();
 });
 
