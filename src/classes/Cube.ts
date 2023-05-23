@@ -17,7 +17,7 @@ class Cube {
 		this.speedRotationX = 0.04;
 		this.speedRotationY = 0.05;
 		this.speedRotationZ = 0.02;
-		this.cubeWidthHeight = 100;
+		this.cubeWidthHeight = 40;
 		this.horizontalOffset = 0;
 		this.verticalOffset = 0;
 		this.distanceFromCam = 100;

@@ -60,11 +60,11 @@ const updateBuffers = (cube: Cube, zBuffer: number[], textBuffer: string[], scre
 	for (let cubeX = -halfCubeLength; cubeX < halfCubeLength; cubeX++) {
 		for (let cubeY = -halfCubeLength; cubeY < halfCubeLength; cubeY++) {
 			calculateForSurface(cubeX, cubeY, -halfCubeLength, cube, FACE_1_CHARACTER, zBuffer, textBuffer, screenWidth, screenHeight);
-			calculateForSurface(halfCubeLength, cubeY, cubeX, cube, FACE_2_CHARACTER, zBuffer, textBuffer, screenWidth, screenHeight);
-			calculateForSurface(-halfCubeLength, cubeY, -cubeX, cube, FACE_3_CHARACTER, zBuffer, textBuffer, screenWidth, screenHeight);
-			calculateForSurface(-cubeX, cubeY, halfCubeLength, cube, FACE_4_CHARACTER, zBuffer, textBuffer, screenWidth, screenHeight);
-			calculateForSurface(cubeX, -halfCubeLength, -cubeY, cube, FACE_5_CHARACTER, zBuffer, textBuffer, screenWidth, screenHeight);
-			calculateForSurface(cubeX, halfCubeLength, cubeY, cube, FACE_6_CHARACTER, zBuffer, textBuffer, screenWidth, screenHeight);
+			// calculateForSurface(halfCubeLength, cubeY, cubeX, cube, FACE_2_CHARACTER, zBuffer, textBuffer, screenWidth, screenHeight);
+			// calculateForSurface(-halfCubeLength, cubeY, -cubeX, cube, FACE_3_CHARACTER, zBuffer, textBuffer, screenWidth, screenHeight);
+			// calculateForSurface(-cubeX, cubeY, halfCubeLength, cube, FACE_4_CHARACTER, zBuffer, textBuffer, screenWidth, screenHeight);
+			// calculateForSurface(cubeX, -halfCubeLength, -cubeY, cube, FACE_5_CHARACTER, zBuffer, textBuffer, screenWidth, screenHeight);
+			// calculateForSurface(cubeX, halfCubeLength, cubeY, cube, FACE_6_CHARACTER, zBuffer, textBuffer, screenWidth, screenHeight);
 		}
 	}
 };
