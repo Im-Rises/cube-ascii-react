@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Cube from '../classes/Cube';
-import {generateTextFromBuffer, refreshBuffers, rotateCube, updateBuffers} from '../maths/projection-rotation';
+import {generateTextFromBuffer, refreshBuffers, rotateCube, updateBuffers} from '../maths/cube-maths';
 
 type Props = {
 	screenWidth?: number;

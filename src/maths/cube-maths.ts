@@ -10,27 +10,27 @@ import type Cube from '../classes/Cube';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const K1 = 40;
 
-const calculateX = (x: number, y: number, z: number, cube: Cube): number =>
-	(y * Math.sin(cube.rotationX) * Math.sin(cube.rotationY) * Math.cos(cube.rotationZ))
-    - (z * Math.cos(cube.rotationX) * Math.sin(cube.rotationY) * Math.cos(cube.rotationZ))
-    + (y * Math.cos(cube.rotationX) * Math.sin(cube.rotationZ))
-    + (z * Math.sin(cube.rotationX) * Math.sin(cube.rotationZ))
-    + (x * Math.cos(cube.rotationY) * Math.cos(cube.rotationZ));
+const calculateX = (i: number, j: number, k: number, cube: Cube): number => (
+	(j * Math.sin(cube.rotationX) * Math.sin(cube.rotationY) * Math.cos(cube.rotationZ))
+        - (k * Math.cos(cube.rotationX) * Math.sin(cube.rotationY) * Math.cos(cube.rotationZ))
+        + (j * Math.cos(cube.rotationX) * Math.sin(cube.rotationZ))
+        + (k * Math.sin(cube.rotationX) * Math.sin(cube.rotationZ))
+        + (i * Math.cos(cube.rotationY) * Math.cos(cube.rotationZ))
+);
 
-const calculateY = (x: number, y: number, z: number, cube: Cube): number =>
-	(x * Math.sin(cube.rotationY) * Math.cos(cube.rotationZ))
-    + (x * Math.cos(cube.rotationY) * Math.sin(cube.rotationZ))
-    - (y * Math.sin(cube.rotationX) * Math.sin(cube.rotationY) * Math.sin(cube.rotationZ))
-    + (z * Math.cos(cube.rotationX) * Math.sin(cube.rotationY) * Math.sin(cube.rotationZ))
-    - (y * Math.cos(cube.rotationX) * Math.cos(cube.rotationZ))
-    - (z * Math.sin(cube.rotationX) * Math.cos(cube.rotationZ));
+const calculateY = (i: number, j: number, k: number, cube: Cube): number => (
+	(j * Math.cos(cube.rotationX) * Math.cos(cube.rotationZ))
+        + (k * Math.sin(cube.rotationX) * Math.cos(cube.rotationZ))
+        - (j * Math.sin(cube.rotationX) * Math.sin(cube.rotationY) * Math.sin(cube.rotationZ))
+        + (k * Math.cos(cube.rotationX) * Math.sin(cube.rotationY) * Math.sin(cube.rotationZ))
+        - (i * Math.cos(cube.rotationY) * Math.sin(cube.rotationZ))
+);
 
-const calculateZ = (x: number, y: number, z: number, cube: Cube): number =>
-	(x * Math.cos(cube.rotationY) * Math.sin(cube.rotationZ))
-    - (x * Math.sin(cube.rotationY) * Math.cos(cube.rotationZ))
-    + (y * Math.sin(cube.rotationX) * Math.cos(cube.rotationY))
-    - (y * Math.cos(cube.rotationX) * Math.sin(cube.rotationY))
-    + (z * Math.cos(cube.rotationX) * Math.cos(cube.rotationY));
+const calculateZ = (i: number, j: number, k: number, cube: Cube): number => (
+	(k * Math.cos(cube.rotationX) * Math.cos(cube.rotationY))
+        - (j * Math.sin(cube.rotationX) * Math.cos(cube.rotationY))
+        + (i * Math.sin(cube.rotationY))
+);
 
 const calculateForSurface = (cubeX: number, cubeY: number, cubeZ: number,
 	cube: Cube, ch: string,
