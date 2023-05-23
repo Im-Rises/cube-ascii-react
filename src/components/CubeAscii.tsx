@@ -14,6 +14,7 @@ type Props = {
 	cubeWidthHeight?: number;
 	distanceFromCamera?: number;
 	frameRate?: number;
+	useColor?: boolean;
 };
 
 const defaultProps = {
@@ -22,6 +23,7 @@ const defaultProps = {
 	cubeWidthHeight: 40,
 	distanceFromCamera: 100,
 	frameRate: 60,
+	useColor: true,
 };
 
 export const CubeAscii = (props: Props) => {
@@ -40,18 +42,21 @@ export const CubeAscii = (props: Props) => {
 
 			updateBuffers(cube, zBuffer, cubeTextBuffer, mergedProps.screenWidth, mergedProps.screenHeight);
 
-			// setAsciiCube(generateTextFromBuffer(cubeTextBuffer, mergedProps.screenWidth, mergedProps.screenHeight));
-			setAsciiCube(generateTextFromBufferWithColor(cubeTextBuffer, mergedProps.screenWidth, mergedProps.screenHeight));
+			if (mergedProps.useColor) {
+				setAsciiCube(generateTextFromBufferWithColor(cubeTextBuffer, mergedProps.screenWidth, mergedProps.screenHeight));
+			} else {
+				setAsciiCube(generateTextFromBuffer(cubeTextBuffer, mergedProps.screenWidth, mergedProps.screenHeight));
+			}
 
 			rotateCube(cube);
 		};
-		
+
 		const interval = setInterval(updateCube, 1000 / mergedProps.frameRate);
 
 		return () => {
 			clearInterval(interval);
 		};
-	}, [mergedProps.screenWidth, mergedProps.screenHeight, mergedProps.frameRate]);
+	}, [mergedProps.screenWidth, mergedProps.screenHeight, mergedProps.frameRate, mergedProps.useColor]);
 
 	return (
 		<div>
