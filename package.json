@@ -2,18 +2,47 @@
   "name": "nbody-simulator-react-p5",
   "description": "A react component that simulates the n-body problem using p5.js",
   "homepage": "https://im-rises.github.io/cube-ascii-react/",
-  "repository": "https://github.com/Im-Rises/cube-ascii-react",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Im-Rises/cube-ascii-react"
+  },
+  "author": {
+    "url": "https://github.com/Im-Rises/cube-ascii-react",
+    "name": "Im-Rises",
+    "email": "quentin-morel88@hotmail.com"
+  },
   "version": "0.1.0",
   "private": false,
   "license": "MIT",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "main": "dist/Components/",
+  "main": "dist/Components/CubeAscii.js",
   "files": [
     "LICENSE",
     "README.md",
-    "package.json"
+    "package.json",
+    "tsconfig.json",
+    "dist/Components/CubeAscii.js",
+    "dist/Components/CubeAscii.js.map",
+    "dist/Components/CubeAscii.d.ts",
+    "dist/Components/CubeAscii.d.ts.map",
+    "src/Components/CubeAscii.tsx",
+    "dist/classes/Cube.js",
+    "dist/classes/Cube.js.map",
+    "dist/classes/Cube.d.ts",
+    "dist/classes/Cube.d.ts.map",
+    "src/classes/Cube.ts",
+    "dist/constants/cube-settings.js",
+    "dist/constants/cube-settings.js.map",
+    "dist/constants/cube-settings.d.ts",
+    "dist/constants/cube-settings.d.ts.map",
+    "src/constants/cube-settings.ts",
+    "dist/maths/cube-maths.js",
+    "dist/maths/cube-maths.js.map",
+    "dist/maths/cube-maths.d.ts",
+    "dist/maths/cube-maths.d.ts.map",
+    "src/maths/cube-maths.ts"
   ],
   "keywords": [
     "cube",
@@ -25,11 +54,8 @@
     "javascript"
   ],
   "dependencies": {
-    "canvas": "^2.11.0",
     "react": "^18.2.0",
-    "react-device-detect": "^2.2.3",
-    "react-dom": "^18.2.0",
-    "react-p5": "^1.3.33"
+    "react-dom": "^18.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
