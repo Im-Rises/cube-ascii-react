@@ -11,25 +11,17 @@
 
 ## Description
 
+This is a package to create a 3D ASCII cube in React.
+
 ## 🚀🚀[You can try it online from your browser](https://im-rises.github.io/cube-ascii-react-website/) 🚀🚀
+
+You can find the package in the npm registry:  
 
 ## 🚀🚀 [The package is available on npm](https://www.npmjs.com/package/cube-ascii-react) 🚀🚀
 
-## Screenshots
-
-[//]: # (|                                                      Attraction                                                       |                                                         Drag                                                          |                                                       Repulsion                                                       |)
-
-[//]: # (|:---------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------:|)
-
-[//]: # (| ![screenshot1]&#40;https://user-images.githubusercontent.com/59691442/230525907-1efd6bc5-ce33-485a-879a-57a8ed46c596.png&#41; | ![screenshot2]&#40;https://user-images.githubusercontent.com/59691442/230525910-7a41907f-d6fe-4ed2-8c44-94c09b837e6f.png&#41; | ![screenshot3]&#40;https://user-images.githubusercontent.com/59691442/230525912-bb0054c4-0f0c-4f6e-b7c9-937f11ba0acf.png&#41; |)
-
 ## Demo video
 
-[//]: # (https://user-images.githubusercontent.com/59691442/219550627-16660c09-dbea-41f3-ba15-3d7aaafca6d9.mp4)
-
-[//]: # (https://user-images.githubusercontent.com/59691442/230523799-9afbf327-3cf4-4530-8127-594339d94334.mp4)
-
-[//]: # (https://user-images.githubusercontent.com/59691442/230526870-cd104007-be41-4cdd-a10e-4672da650974.mp4)
+https://github.com/Im-Rises/cubeAscii/assets/59691442/f5bd5eae-67f1-4b75-88f0-6140808ba2f8
 
 ## Package installation
 
@@ -127,7 +119,7 @@ You can find the complete example of the project in the GitHub
 repository [here](https://im-rises.github.io/cube-ascii-react-website).
 
 > **Note**  
-> Be sure to do like in the example, the parent div of the canvas must be set before the p5 canvas is created.
+> Make sure to follow the example: set the parent div of the canvas before instantiating the cube.
 
 ## GitHub Actions
 
