@@ -36,15 +36,17 @@ export const CubeAscii = (props: Props) => {
 
 			setAsciiCube(generateTextFromBuffer(cubeTextBuffer, mergedProps.screenWidth, mergedProps.screenHeight));
 
-			// rotateCube(cube);
+			rotateCube(cube);
 		};
+
+		// updateCube();
 
 		const interval = setInterval(updateCube, 1000 / mergedProps.frameRate);
 
 		return () => {
 			clearInterval(interval);
 		};
-	}, [mergedProps]);
+	}, [mergedProps.screenWidth, mergedProps.screenHeight, mergedProps.frameRate]);
 
 	return (
 		<div>
