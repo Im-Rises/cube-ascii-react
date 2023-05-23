@@ -1,6 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import Cube from '../classes/Cube';
-import {generateTextFromBuffer, refreshBuffers, rotateCube, updateBuffers} from '../maths/cube-maths';
+import {
+	generateTextFromBuffer,
+	generateTextFromBufferWithColor,
+	refreshBuffers,
+	rotateCube,
+	updateBuffers,
+} from '../maths/cube-maths';
 
 type Props = {
 	screenWidth?: number;
@@ -34,11 +40,12 @@ export const CubeAscii = (props: Props) => {
 
 			updateBuffers(cube, zBuffer, cubeTextBuffer, mergedProps.screenWidth, mergedProps.screenHeight);
 
-			setAsciiCube(generateTextFromBuffer(cubeTextBuffer, mergedProps.screenWidth, mergedProps.screenHeight));
+			// setAsciiCube(generateTextFromBuffer(cubeTextBuffer, mergedProps.screenWidth, mergedProps.screenHeight));
+			setAsciiCube(generateTextFromBufferWithColor(cubeTextBuffer, mergedProps.screenWidth, mergedProps.screenHeight));
 
 			rotateCube(cube);
 		};
-
+		
 		const interval = setInterval(updateCube, 1000 / mergedProps.frameRate);
 
 		return () => {
@@ -48,10 +55,7 @@ export const CubeAscii = (props: Props) => {
 
 	return (
 		<div>
-			{/* <pre dangerouslySetInnerHTML={{__html: asciiCube}} style={{fontFamily: 'monospace'}}/> */}
-			<pre style={{fontFamily: 'monospace'}}>
-				{asciiCube}
-			</pre>
+			<pre dangerouslySetInnerHTML={{__html: asciiCube}} style={{fontFamily: 'monospace'}}/>
 		</div>
 	);
 };
