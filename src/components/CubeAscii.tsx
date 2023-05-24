@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {createRef, useEffect, useRef, useState} from 'react';
 import Cube from '../classes/Cube';
 import {
 	generateTextFromBuffer,
@@ -17,6 +17,8 @@ type Props = {
 	distanceFromCamera?: number;
 	frameRate?: number;
 	useColor?: boolean;
+	defaultColor?: string;
+	preTagRef?: React.RefObject<HTMLPreElement>;
 };
 
 const defaultProps = {
@@ -26,12 +28,12 @@ const defaultProps = {
 	distanceFromCamera: 100,
 	frameRate: 60,
 	useColor: true,
+	defaultColor: '#ffffff',
+	preTagRef: createRef<HTMLPreElement>(),
 };
 
 export const CubeAscii = (props: Props) => {
 	const mergedProps = {...defaultProps, ...props};
-
-	const preTagRef = useRef<HTMLPreElement>(null);
 
 	const [asciiCube, setAsciiCube] = useState<string>('');
 
@@ -41,11 +43,11 @@ export const CubeAscii = (props: Props) => {
 	const cube = new Cube();
 
 	useEffect(() => {
-		calculateAndSetFontSize(preTagRef.current!, mergedProps.screenWidth, mergedProps.screenHeight, mergedProps.parentRef.current!.clientWidth, mergedProps.parentRef.current!.clientHeight);
+		calculateAndSetFontSize(mergedProps.preTagRef.current!, mergedProps.screenWidth, mergedProps.screenHeight, mergedProps.parentRef.current!.clientWidth, mergedProps.parentRef.current!.clientHeight);
 
 		const resizeObserver = new ResizeObserver(entries => {
 			const {width, height} = entries[0].contentRect;
-			calculateAndSetFontSize(preTagRef.current!, mergedProps.screenWidth, mergedProps.screenHeight, width, height);
+			calculateAndSetFontSize(mergedProps.preTagRef.current!, mergedProps.screenWidth, mergedProps.screenHeight, width, height);
 		});
 		if (mergedProps.parentRef.current) {
 			resizeObserver.observe(mergedProps.parentRef.current);
@@ -65,7 +67,7 @@ export const CubeAscii = (props: Props) => {
 			if (mergedProps.useColor) {
 				setAsciiCube(generateTextFromBufferWithColor(cubeTextBuffer, mergedProps.screenWidth, mergedProps.screenHeight));
 			} else {
-				setAsciiCube(generateTextFromBuffer(cubeTextBuffer, mergedProps.screenWidth, mergedProps.screenHeight));
+				setAsciiCube(generateTextFromBuffer(cubeTextBuffer, mergedProps.screenWidth, mergedProps.screenHeight, mergedProps.defaultColor));
 			}
 
 			rotateCube(cube);
@@ -79,6 +81,7 @@ export const CubeAscii = (props: Props) => {
 	}, [mergedProps.screenWidth, mergedProps.screenHeight, mergedProps.frameRate, mergedProps.useColor, mergedProps.parentRef]);
 
 	return (
-		<pre ref={preTagRef} dangerouslySetInnerHTML={{__html: asciiCube}} style={{fontFamily: 'monospace'}}/>
+		<pre ref={mergedProps.preTagRef} dangerouslySetInnerHTML={{__html: asciiCube}}
+			style={{fontFamily: 'monospace'}}/>
 	);
 };

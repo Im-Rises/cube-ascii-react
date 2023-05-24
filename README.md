@@ -11,25 +11,17 @@
 
 ## Description
 
+This is a package to create a 3D ASCII cube in React.
+
 ## 🚀🚀[You can try it online from your browser](https://im-rises.github.io/cube-ascii-react-website/) 🚀🚀
+
+You can find the package in the npm registry:
 
 ## 🚀🚀 [The package is available on npm](https://www.npmjs.com/package/cube-ascii-react) 🚀🚀
 
-## Screenshots
-
-[//]: # (|                                                      Attraction                                                       |                                                         Drag                                                          |                                                       Repulsion                                                       |)
-
-[//]: # (|:---------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------:|)
-
-[//]: # (| ![screenshot1]&#40;https://user-images.githubusercontent.com/59691442/230525907-1efd6bc5-ce33-485a-879a-57a8ed46c596.png&#41; | ![screenshot2]&#40;https://user-images.githubusercontent.com/59691442/230525910-7a41907f-d6fe-4ed2-8c44-94c09b837e6f.png&#41; | ![screenshot3]&#40;https://user-images.githubusercontent.com/59691442/230525912-bb0054c4-0f0c-4f6e-b7c9-937f11ba0acf.png&#41; |)
-
 ## Demo video
 
-[//]: # (https://user-images.githubusercontent.com/59691442/219550627-16660c09-dbea-41f3-ba15-3d7aaafca6d9.mp4)
-
-[//]: # (https://user-images.githubusercontent.com/59691442/230523799-9afbf327-3cf4-4530-8127-594339d94334.mp4)
-
-[//]: # (https://user-images.githubusercontent.com/59691442/230526870-cd104007-be41-4cdd-a10e-4672da650974.mp4)
+https://github.com/Im-Rises/cubeAscii/assets/59691442/f5bd5eae-67f1-4b75-88f0-6140808ba2f8
 
 ## Package installation
 
@@ -48,20 +40,31 @@ import {CubeAscii} from './components/CubeAscii';
 
 const App: React.FC = () => {
     const divRef = React.useRef<HTMLDivElement>(null);
+    const preTagRef = React.useRef<HTMLPreElement>(null);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [useColor, setUseColor] = useState(true);
+
+    const copyToClipboard = async (text: string) => {
+        try {
+            await navigator.clipboard.writeText(text);
+            console.log('Text copied to clipboard');
+        } catch (err: unknown) {
+            console.error('Failed to copy text: ', err);
+        }
+    };
 
     useEffect(() => {
         if (divRef.current) {
             setIsLoaded(true);
-            console.log('loaded');
         }
     }, [divRef]);
     return (
         <div className={'App'} ref={divRef}>
             {
                 isLoaded
-                    ? (
-                        <CubeAscii parentRef={divRef}/>
+                    ? (<>
+                            <CubeAscii parentRef={divRef}/>
+                        </>
                     )
                     : (
                         <p>Loading...</p>
@@ -75,7 +78,7 @@ export default App;
 
 ```
 
-or you can change all the settings like this:
+or you can change some settings like this:
 
 ```tsx
 import React, {useEffect, useState} from 'react';
@@ -84,22 +87,37 @@ import {CubeAscii} from './components/CubeAscii';
 
 const App: React.FC = () => {
     const divRef = React.useRef<HTMLDivElement>(null);
+    const preTagRef = React.useRef<HTMLPreElement>(null);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [useColor, setUseColor] = useState(true);
+
+    const copyToClipboard = async (text: string) => {
+        try {
+            await navigator.clipboard.writeText(text);
+            console.log('Text copied to clipboard');
+        } catch (err: unknown) {
+            console.error('Failed to copy text: ', err);
+        }
+    };
 
     useEffect(() => {
         if (divRef.current) {
             setIsLoaded(true);
-            console.log('loaded');
         }
     }, [divRef]);
     return (
         <div className={'App'} ref={divRef}>
             {
                 isLoaded
-                    ? (
-                        <CubeAscii parentRef={divRef} screenWidth={70} screenHeight={30}
-                                   cubeWidthHeight={40} distanceFromCamera={100}
-                                   framerate={60} useColor={true}/>
+                    ? (<>
+                            <button onClick={() => {
+                                setUseColor(!useColor);
+                            }}/>
+                            <button className={'Button-Copy-Clipboard'}
+                                    onClick={async () => copyToClipboard(preTagRef.current!.innerText)}>Copy to clipboard
+                            </button>
+                            <CubeAscii parentRef={divRef} useColor={useColor} preTagRef={preTagRef}/>
+                        </>
                     )
                     : (
                         <p>Loading...</p>
@@ -113,7 +131,7 @@ export default App;
 
 ```
 
-The component takes 1 to 16 props:
+The component takes 1 to 9 props:
 
 - `parentRef` - a reference to the parent div of the canvas. It is used to get the size of the canvas.
 - `screenWidth` - the resolution of the cube view in characters.
@@ -122,12 +140,14 @@ The component takes 1 to 16 props:
 - `distanceFromCamera` - the distance from the camera to the cube.
 - `framerate` - the framerate of the animation.
 - `useColor` - a boolean to use colors or not.
+- `defaultColor` - the default color of the cube when `useColor` is set to `false`.
+- `preTagRef` - a reference to the pre tag that contains the cube. You can use it to copy the cube to the clipboard.
 
 You can find the complete example of the project in the GitHub
 repository [here](https://im-rises.github.io/cube-ascii-react-website).
 
 > **Note**  
-> Be sure to do like in the example, the parent div of the canvas must be set before the p5 canvas is created.
+> Make sure to follow the example: set the parent div of the canvas before instantiating the cube.
 
 ## GitHub Actions
 
