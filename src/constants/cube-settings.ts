@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-const BACKGROUND_CHARACTER = '.';
+const BACKGROUND_CHARACTER = ' ';// '.'
 const FACE_1_CHARACTER = '@';
 const FACE_2_CHARACTER = '$';
 const FACE_3_CHARACTER = '~';

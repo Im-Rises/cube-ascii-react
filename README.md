@@ -15,7 +15,7 @@ This is a package to create a 3D ASCII cube in React.
 
 ## 🚀🚀[You can try it online from your browser](https://im-rises.github.io/cube-ascii-react-website/) 🚀🚀
 
-You can find the package in the npm registry:  
+You can find the package in the npm registry:
 
 ## 🚀🚀 [The package is available on npm](https://www.npmjs.com/package/cube-ascii-react) 🚀🚀
 
@@ -40,20 +40,31 @@ import {CubeAscii} from './components/CubeAscii';
 
 const App: React.FC = () => {
     const divRef = React.useRef<HTMLDivElement>(null);
+    const preTagRef = React.useRef<HTMLPreElement>(null);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [useColor, setUseColor] = useState(true);
+
+    const copyToClipboard = async (text: string) => {
+        try {
+            await navigator.clipboard.writeText(text);
+            console.log('Text copied to clipboard');
+        } catch (err: unknown) {
+            console.error('Failed to copy text: ', err);
+        }
+    };
 
     useEffect(() => {
         if (divRef.current) {
             setIsLoaded(true);
-            console.log('loaded');
         }
     }, [divRef]);
     return (
         <div className={'App'} ref={divRef}>
             {
                 isLoaded
-                    ? (
-                        <CubeAscii parentRef={divRef}/>
+                    ? (<>
+                            <CubeAscii parentRef={divRef}/>
+                        </>
                     )
                     : (
                         <p>Loading...</p>
@@ -67,7 +78,7 @@ export default App;
 
 ```
 
-or you can change all the settings like this:
+or you can change some settings like this:
 
 ```tsx
 import React, {useEffect, useState} from 'react';
@@ -76,22 +87,37 @@ import {CubeAscii} from './components/CubeAscii';
 
 const App: React.FC = () => {
     const divRef = React.useRef<HTMLDivElement>(null);
+    const preTagRef = React.useRef<HTMLPreElement>(null);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [useColor, setUseColor] = useState(true);
+
+    const copyToClipboard = async (text: string) => {
+        try {
+            await navigator.clipboard.writeText(text);
+            console.log('Text copied to clipboard');
+        } catch (err: unknown) {
+            console.error('Failed to copy text: ', err);
+        }
+    };
 
     useEffect(() => {
         if (divRef.current) {
             setIsLoaded(true);
-            console.log('loaded');
         }
     }, [divRef]);
     return (
         <div className={'App'} ref={divRef}>
             {
                 isLoaded
-                    ? (
-                        <CubeAscii parentRef={divRef} screenWidth={70} screenHeight={30}
-                                   cubeWidthHeight={40} distanceFromCamera={100}
-                                   framerate={60} useColor={true}/>
+                    ? (<>
+                            <button onClick={() => {
+                                setUseColor(!useColor);
+                            }}/>
+                            <button className={'Button-Copy-Clipboard'}
+                                    onClick={async () => copyToClipboard(preTagRef.current!.innerText)}>Copy to clipboard
+                            </button>
+                            <CubeAscii parentRef={divRef} useColor={useColor} preTagRef={preTagRef}/>
+                        </>
                     )
                     : (
                         <p>Loading...</p>
@@ -114,6 +140,8 @@ The component takes 1 to 16 props:
 - `distanceFromCamera` - the distance from the camera to the cube.
 - `framerate` - the framerate of the animation.
 - `useColor` - a boolean to use colors or not.
+- `defaultColor` - the default color of the cube when `useColor` is set to `false`.
+- `preTagRef` - a reference to the pre tag that contains the cube. You can use it to copy the cube to the clipboard.
 
 You can find the complete example of the project in the GitHub
 repository [here](https://im-rises.github.io/cube-ascii-react-website).

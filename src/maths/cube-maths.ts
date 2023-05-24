@@ -87,8 +87,8 @@ const refreshBuffers = (zBuffer: number[], textBuffer: string[], screenWidth: nu
 	}
 };
 
-const generateTextFromBuffer = (textBuffer: string[], screenWidth: number, screenHeight: number) => {
-	let text = '';
+const generateTextFromBuffer = (textBuffer: string[], screenWidth: number, screenHeight: number, color: string) => {
+	let text = `<span style="color: ${color}">`;
 	for (let i = 0; i < screenHeight; i++) {
 		for (let j = 0; j < screenWidth; j++) {
 			text += textBuffer[(i * screenWidth) + j];
@@ -97,7 +97,7 @@ const generateTextFromBuffer = (textBuffer: string[], screenWidth: number, scree
 		text += '\n';
 	}
 
-	return text;
+	return text + '</span>';
 };
 
 const generateTextFromBufferWithColor = (textBuffer: string[], screenWidth: number, screenHeight: number) => {
