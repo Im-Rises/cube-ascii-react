@@ -131,7 +131,7 @@ export default App;
 
 ```
 
-The component takes 1 to 16 props:
+The component takes 1 to 9 props:
 
 - `parentRef` - a reference to the parent div of the canvas. It is used to get the size of the canvas.
 - `screenWidth` - the resolution of the cube view in characters.
